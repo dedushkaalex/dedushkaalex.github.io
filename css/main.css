@@ -14,22 +14,44 @@ font-family: 'Poppins', sans-serif;
     --black-border: #26292D;
     --white: #fff;
     --purple: #5C62EC;
-    --orange: #eb9f3c;
+
 
     --text-color: var(--black);
     --dark-bg: var(--black);
     --dark-border: var(--black-border);
     --header-text: var(--white);
     --accent: var(--purple);
+
+    /*Light mode*/
+    --page-bg: var(--white);
+    --text-color: var(--black);
+    --title-1: var(--accent);
+    --box-shadow: rgba(0, 0, 0, 0.25);
+    --btn_link-bg: var(--white);
 }
 
 /* * {
     border: 1px solid red;
 } */
 
+.dark {
+    /*Dark mode*/
+    --page-bg: #252526;
+    --text-color: var(--white);
+    --title-1: var(--white);
+    --box-shadow: rgba(255, 255, 255, 0.25);
+    --btn_link-bg: var(--white);
+}
+
 html, body {
     font-family: 'DM Sans', sans-serif;
     letter-spacing: -0.5px;
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    /*чтобы футер всегда был к низу,если мало контента*/
+    flex-direction: column;
+    background-color: var(--page-bg);
     color: var(--text-color);
 }
 
@@ -56,7 +78,7 @@ html, body {
 
 .nav-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     column-gap: 30px;
     /* расстояние между блоками */
@@ -69,6 +91,7 @@ html, body {
     color: var(--header-text);
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
+    margin-right: auto;
 }
 
 .logo strong {
@@ -79,6 +102,8 @@ html, body {
     display: flex;
     align-items: center;
     column-gap: 40px;
+    row-gap: 10px;
+    flex-wrap: wrap;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -109,6 +134,49 @@ html, body {
     height: 3px;
     background-color: var(--accent)
 }
+
+/*dark mode btn*/
+.dark-mode-btn {
+    display: flex;
+    order: 9;
+    justify-content: space-between;
+    width: 51px;
+    height: 26px;
+    background-color: #272727;
+    border-radius: 50px;
+    padding: 5px;
+
+    position: relative;
+}
+
+.dark-mode-btn img {
+    position: relative;
+    z-index: 9;
+}
+
+.dark-mode-btn::before {
+    content: '';
+    display: block;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    border-radius: 50px;
+    z-index: 0;
+    transition: left 0.2s ease-in;
+
+}
+
+.dark-mode-btn--active::before {
+    left: 26px;
+}
+
+.dark-mode-btn__icon {}
+
+.sun-mode-btn__icon {}
+
 
 /* header */
 
@@ -164,7 +232,7 @@ html, body {
 .btn {
     display: inline-block;
     color: var(--header-text);
-    height: 48px;
+    /* height: 48px; */
     padding: 12px 28px;
     background-color: var(--accent);
     border-radius: 5px;
@@ -190,7 +258,7 @@ html, body {
 }
 
 .title-1 {
-    color: var(--accent);
+    color: var(--title-1);
     font-weight: 700;
     letter-spacing: -0.5px;
     font-size: 60px;
@@ -204,13 +272,14 @@ html, body {
     row-gap: 30px;
     flex-wrap: wrap;
     margin-top: 60px;
+    justify-content: center;
 }
 
 .main-item {
     max-width: 370px;
     border-radius: 10px;
     background-color: var(--white);
-    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 5px 35px var(--box-shadow);
 }
 
 .main-item img {
@@ -223,7 +292,7 @@ html, body {
     letter-spacing: -0.5px;
     font-weight: 700;
     font-size: 24px;
-    color: var(--text-color);
+    color: var(--black);
 }
 
 /*footer*/
@@ -232,6 +301,8 @@ html, body {
     background-color: var(--dark-bg);
     padding: 60px 0 50px;
     text-align: center;
+    margin-top: auto;
+    /*чтобы футер всегда был к низу,если мало контента*/
 }
 
 .footer__wrapper {
@@ -276,7 +347,7 @@ html, body {
 }
 
 .project-details h1 {
-    color: var(--accent);
+    color: var(--title-1);
     font-weight: 700;
     line-height: 1.3;
     font-size: 60px;
@@ -302,26 +373,40 @@ html, body {
 
 .btn-outline {
     position: relative;
-    padding: 12px 30px;
+    padding: 12px 30px 12px 55px;
     border: 1px solid var(--black-border);
     border-radius: 5px;
     display: flex;
     gap: 15px;
     align-items: center;
     color: var(--dark-bg);
+    background-color: var(--btn_link-bg);
     transition: 0.5s;
 }
 
 .btn-outline .git_img_white {
-    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 25px;
+}
+
+.btn-outline .git_img_black {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 25px;
 }
 
 .btn-outline:hover .git_img_white {
-    display: block;
+    visibility: visible;
+    opacity: 1;
 }
 
-.btn-outline:hover img:last-child {
-    display: none;
+.btn-outline:hover .git_img_black {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s linear, opacity 0.3s linear;
 }
 
 .btn-outline:hover {
@@ -350,4 +435,71 @@ html, body {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+}
+
+/*responive styles*/
+@media screen and (max-width: 620px) {
+    .header__title {
+        font-size: 30px;
+    }
+
+    .header__title strong {
+        font-size: 40px;
+    }
+
+    .header {
+        min-height: unset;
+    }
+
+    /* Nav*/
+    .nav-row {
+        justify-content: space-between;
+    }
+
+    .dark-mode-btn {
+        order: 0;
+    }
+
+    .title-1 {
+        font-size: 40px;
+    }
+
+    .main__wrapper {
+        margin-top: 30px;
+    }
+
+    .main-item h3 {
+        font-size: 22px;
+    }
+
+    .footer {
+        padding: 40px 0 50px;
+    }
+
+    .footer .socials {
+        column-gap: 12px;
+    }
+
+    .footer .socials img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .footer .copyright {
+        font-size: 14px;
+    }
+
+    .title-2 {
+        font-size: 30px;
+        margin: 20px 0 5px 0;
+    }
+
+    .project-details .title-1 {
+        font-size: 35px;
+    }
+
+    .project-details__skills p {
+        font-size: 20px;
+    }
+
 }
